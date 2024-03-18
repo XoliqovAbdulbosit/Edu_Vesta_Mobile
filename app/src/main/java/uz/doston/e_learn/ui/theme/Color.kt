@@ -2,15 +2,10 @@ package uz.doston.e_learn.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val MidnightBlue = Color(0xFF1B202D)
-val DeepSlate = Color(0xFF292F3F)
-val StormyGrey = Color(0xFF424B61)
-val Charcoal = Color(0xFF373E4E)
-val SteelBlue = Color(0xFF252B3C)
-val Navy = Color(0xFF153E6F)
-val LightGrey = Color(0xFFD9D9D9)
-val AshGrey = Color(0xFF949494)
-val SemiTransparentBlack = Color(0x33000000)
-val AzureBlue = Color(0xff2579ce)
-val VerdantGreen = Color(0xFF35853a)
-val RustRed = Color(0xffad231c)
+val Primary = Color(0xFF3AB766)
+val Secondary = Color(0xFF66D3E3)
+val Background = Color(0xFFB4E5F9)
+val TextColor = Color(0xFF0E4A5E)
+val Blue = Color(0xFF0579CE)
+val Green = Color(0xFF35853A)
+val Red = Color(0xFFAD231C)

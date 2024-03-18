@@ -4,12 +4,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -19,9 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.SteelBlue
+import uz.doston.e_learn.ui.theme.Primary
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
 
 
 data class BottomNavigationItem(
@@ -56,26 +56,26 @@ fun BottomNavigationComponent(navController: NavController) {
         ),
         BottomNavigationItem(
             title = "Profile",
-            selectedIcon = Icons.Filled.Settings,
-            unselectedIcon = Icons.Outlined.Settings,
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
         ),
     )
     val currentRoute = navController.currentDestination?.route
-    NavigationBar(containerColor = DeepSlate) {
+    NavigationBar(containerColor = Secondary) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(selected = currentRoute == item.title, onClick = {
                 navController.navigate(item.title)
             }, label = {
-                Text(text = item.title, color = LightGrey)
+                Text(text = item.title, color = TextColor)
             }, icon = {
                 Icon(
                     imageVector = if (currentRoute == item.title) {
                         item.selectedIcon
                     } else item.unselectedIcon,
                     contentDescription = item.title,
-                    tint = LightGrey,
+                    tint = TextColor,
                 )
-            }, colors = NavigationBarItemDefaults.colors(indicatorColor = SteelBlue))
+            }, colors = NavigationBarItemDefaults.colors(indicatorColor = Primary))
         }
     }
 }

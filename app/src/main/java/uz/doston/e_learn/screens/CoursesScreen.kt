@@ -26,11 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import uz.doston.e_learn.ui.theme.AshGrey
-import uz.doston.e_learn.ui.theme.Charcoal
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.MidnightBlue
-import uz.doston.e_learn.ui.theme.StormyGrey
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.Primary
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
 
 
 @Composable
@@ -65,7 +64,7 @@ fun CoursesScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MidnightBlue)
+                .background(Background)
                 .padding(it)
         ) {
             Spacer(modifier = Modifier.height(10.dp))
@@ -82,11 +81,11 @@ fun CoursesScreen(navController: NavController) {
                             }
                         }
                         .padding(horizontal = 5.dp)
-                        .background(StormyGrey, RoundedCornerShape(8.dp))) {
+                        .background(Secondary, RoundedCornerShape(8.dp))) {
                         Text(
                             modifier = Modifier.padding(vertical = 5.dp, horizontal = 10.dp),
                             text = cnt_category,
-                            color = if (category != cnt_category) LightGrey else AshGrey,
+                            color = if (category != cnt_category) TextColor else Primary,
                         )
                     }
                 }
@@ -105,11 +104,11 @@ fun CoursesScreen(navController: NavController) {
                             }
                         }
                         .padding(horizontal = 5.dp)
-                        .background(StormyGrey, RoundedCornerShape(10.dp))) {
+                        .background(Secondary, RoundedCornerShape(10.dp))) {
                         Text(
                             modifier = Modifier.padding(vertical = 5.dp, horizontal = 10.dp),
                             text = "$cnt_grade grade",
-                            color = if (grade != cnt_grade) LightGrey else AshGrey,
+                            color = if (grade != cnt_grade) TextColor else Primary,
                         )
                     }
                 }
@@ -132,12 +131,12 @@ fun PlaceItem(lesson: String, navController: NavController) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 5.dp)
-        .background(Charcoal, RoundedCornerShape(6.dp))
+        .background(Secondary, RoundedCornerShape(6.dp))
         .clickable {
             navController.navigate("Lesson/$lesson")
         }) {
         Text(
-            color = LightGrey,
+            color = TextColor,
             modifier = Modifier.padding(8.dp),
             text = lesson,
             fontWeight = FontWeight.Bold,

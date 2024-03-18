@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.R
-import uz.doston.e_learn.ui.theme.MidnightBlue
+import uz.doston.e_learn.ui.theme.Background
 
 
 @Composable
@@ -35,7 +35,7 @@ fun SplashScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MidnightBlue),
+            .background(Background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

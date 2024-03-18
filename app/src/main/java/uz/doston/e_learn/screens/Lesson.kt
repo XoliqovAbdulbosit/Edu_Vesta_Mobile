@@ -1,11 +1,18 @@
 package uz.doston.e_learn.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,9 +31,10 @@ import androidx.navigation.NavController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.model.Lesson
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.TextColor
 
 
 @Composable
@@ -39,39 +47,58 @@ fun LessonScreen(navController: NavController, key: String) {
     Scaffold(bottomBar = {
         BottomNavigationComponent(navController)
     }) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DeepSlate)
-                .padding(it)
+                .background(Background)
+                .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                color = LightGrey,
-                modifier = Modifier.padding(8.dp),
-                text = lesson.title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 17.sp
-            )
-            Text(
-                color = LightGrey,
-                modifier = Modifier.padding(8.dp),
-                text = lesson.content,
-                fontSize = 14.sp
-            )
-            AndroidView(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(16.dp)), factory = { context ->
-                YouTubePlayerView(context).apply {
-                    cnt.lifecycle.addObserver(this)
-
-                    addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadVideo(lesson.link, 0f)
-                        }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
+                ExtendedFloatingActionButton(modifier = Modifier.padding(5.dp),
+                    containerColor = Background,
+                    text = { Text(text = "Back", color = TextColor) },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Lessons Icon",
+                            tint = TextColor
+                        )
+                    },
+                    onClick = {
+                        navController.navigate(Screens.Lessons.route)
                     })
-                }
-            })
+                Text(
+                    color = TextColor,
+                    modifier = Modifier.padding(8.dp),
+                    text = lesson.title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 17.sp
+                )
+                Text(
+                    color = TextColor,
+                    modifier = Modifier.padding(8.dp),
+                    text = lesson.content,
+                    fontSize = 14.sp
+                )
+                AndroidView(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+                    .clip(RoundedCornerShape(16.dp)), factory = { context ->
+                    YouTubePlayerView(context).apply {
+                        cnt.lifecycle.addObserver(this)
+
+                        addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+                                youTubePlayer.loadVideo(lesson.link, 0f)
+                            }
+                        })
+                    }
+                })
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package uz.doston.e_learn.screens
 
+import Manager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,8 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,19 +36,23 @@ import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.R
 import uz.doston.e_learn.model.Profile
 import uz.doston.e_learn.model.SolvedInfo
-import uz.doston.e_learn.ui.theme.AzureBlue
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.RustRed
-import uz.doston.e_learn.ui.theme.VerdantGreen
+import uz.doston.e_learn.ui.theme.Blue
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.TextColor
+import uz.doston.e_learn.ui.theme.Red
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.Green
 
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {
     var user by remember { mutableStateOf(Profile("", "", 0, 0, SolvedInfo(0, emptyList()))) }
     val context = LocalContext.current
-    Manager.getProfileInfo(Manager.getToken(context)) {
-        user = it
+    val username = Manager.getToken(context)
+    if (username != "") {
+        Manager.getProfileInfo(username) {
+            user = it
+        }
     }
     Scaffold(bottomBar = {
         BottomNavigationComponent(navController)
@@ -56,7 +61,7 @@ fun ProfileScreen(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(DeepSlate)
+                .background(Background)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -68,17 +73,31 @@ fun ProfileScreen(navController: NavHostController) {
                     modifier = Modifier
                         .size(75.dp)
                         .padding(10.dp),
-                    tint = LightGrey,
+                    tint = Secondary,
                 )
                 Column {
                     Text(
                         text = user.username,
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
-                        color = LightGrey
+                        color = TextColor
                     )
-                    Text(text = user.joined, fontSize = 18.sp, color = LightGrey)
+                    Text(text = user.joined, fontSize = 18.sp, color = TextColor)
                 }
+                ExtendedFloatingActionButton(modifier = Modifier.padding(start = 20.dp),
+                    containerColor = Red,
+                    text = { Text(text = "Log Out", color = TextColor) },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.ExitToApp,
+                            contentDescription = "Log Out Icon",
+                            tint = TextColor
+                        )
+                    },
+                    onClick = {
+                        Manager.giveToken(context, "")
+                        navController.navigate(Screens.Login.route)
+                    })
             }
             Row(modifier = Modifier.padding(vertical = 10.dp)) {
                 Column(
@@ -90,9 +109,9 @@ fun ProfileScreen(navController: NavHostController) {
                         painter = painterResource(R.drawable.award_solid),
                         contentDescription = "Award Icon",
                         modifier = Modifier.size(40.dp),
-                        tint = LightGrey,
+                        tint = TextColor,
                     )
-                    Text(text = user.rank.toString(), fontSize = 32.sp, color = LightGrey)
+                    Text(text = user.rank.toString(), fontSize = 32.sp, color = TextColor)
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.5f),
@@ -103,12 +122,12 @@ fun ProfileScreen(navController: NavHostController) {
                         painter = painterResource(R.drawable.list_check_solid),
                         contentDescription = "List Icon",
                         modifier = Modifier.size(40.dp),
-                        tint = LightGrey,
+                        tint = TextColor,
                     )
                     Text(
                         text = "${user.solved.cnt} / ${user.ln}",
                         fontSize = 32.sp,
-                        color = LightGrey
+                        color = TextColor
                     )
                 }
             }
@@ -118,7 +137,7 @@ fun ProfileScreen(navController: NavHostController) {
                         Text(
                             text = it[0] as String,
                             fontSize = 20.sp,
-                            color = LightGrey,
+                            color = TextColor,
                             modifier = Modifier
                                 .width(120.dp)
                                 .padding(horizontal = 17.dp, vertical = 10.dp)
@@ -129,7 +148,7 @@ fun ProfileScreen(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 modifier = Modifier
                                     .background(
-                                        VerdantGreen, RoundedCornerShape(20.dp)
+                                        Green, RoundedCornerShape(20.dp)
                                     )
                                     .width(80.dp)
                                     .padding(horizontal = 10.dp, vertical = 5.dp)
@@ -140,9 +159,9 @@ fun ProfileScreen(navController: NavHostController) {
                                     modifier = Modifier
                                         .size(40.dp)
                                         .padding(10.dp),
-                                    tint = LightGrey,
+                                    tint = TextColor,
                                 )
-                                Text(text = it[1].toString(), color = LightGrey)
+                                Text(text = it[1].toString(), color = TextColor)
                             }
                             Spacer(modifier = Modifier.width(10.dp))
                             Column(
@@ -150,7 +169,7 @@ fun ProfileScreen(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 modifier = Modifier
                                     .background(
-                                        AzureBlue, RoundedCornerShape(20.dp)
+                                        Blue, RoundedCornerShape(20.dp)
                                     )
                                     .width(80.dp)
                                     .padding(horizontal = 10.dp, vertical = 5.dp)
@@ -161,9 +180,9 @@ fun ProfileScreen(navController: NavHostController) {
                                     modifier = Modifier
                                         .size(40.dp)
                                         .padding(10.dp),
-                                    tint = LightGrey,
+                                    tint = TextColor,
                                 )
-                                Text(text = it[2].toString(), color = LightGrey)
+                                Text(text = it[2].toString(), color = TextColor)
                             }
                             Spacer(modifier = Modifier.width(10.dp))
                             Column(
@@ -171,7 +190,7 @@ fun ProfileScreen(navController: NavHostController) {
                                 verticalArrangement = Arrangement.Center,
                                 modifier = Modifier
                                     .background(
-                                        RustRed, RoundedCornerShape(20.dp)
+                                        Red, RoundedCornerShape(20.dp)
                                     )
                                     .width(80.dp)
                                     .padding(horizontal = 10.dp, vertical = 5.dp)
@@ -182,21 +201,13 @@ fun ProfileScreen(navController: NavHostController) {
                                     modifier = Modifier
                                         .size(40.dp)
                                         .padding(10.dp),
-                                    tint = LightGrey,
+                                    tint = TextColor,
                                 )
-                                Text(text = it[3].toString(), color = LightGrey)
+                                Text(text = it[3].toString(), color = TextColor)
                             }
                         }
                     }
                 }
-            }
-            Button(colors = ButtonDefaults.buttonColors(containerColor = RustRed),
-                modifier = Modifier.padding(horizontal = 10.dp),
-                onClick = {
-                    Manager.giveToken(context, "")
-                    navController.navigate(Screens.Login.route)
-                }) {
-                Text(text = "Log Out", color = LightGrey, fontSize = 20.sp)
             }
         }
     }

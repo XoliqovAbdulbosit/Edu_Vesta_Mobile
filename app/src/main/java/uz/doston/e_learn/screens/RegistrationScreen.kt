@@ -25,6 +25,8 @@ import androidx.navigation.NavController
 import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.R
 import uz.doston.e_learn.ui.theme.*
+import uz.doston.e_learn.ui.theme.Blue
+import uz.doston.e_learn.ui.theme.Green
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,7 +40,7 @@ fun RegistrationScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MidnightBlue)
+            .background(Background)
             .padding(horizontal = 36.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -61,16 +63,16 @@ fun RegistrationScreen(navController: NavController) {
                 Icon(
                     imageVector = Icons.Rounded.Email,
                     contentDescription = "Email",
-                    tint = SemiTransparentBlack,
+                    tint = Background,
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                focusedTextColor = LightGrey,
-                unfocusedTextColor = LightGrey,
+                focusedTextColor = TextColor,
+                unfocusedTextColor = TextColor,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = LightGrey,
-                containerColor = DeepSlate,
+                cursorColor = TextColor,
+                containerColor = Secondary,
             ),
             textStyle = TextStyle(fontSize = 16.sp)
         )
@@ -86,16 +88,16 @@ fun RegistrationScreen(navController: NavController) {
                 Icon(
                     imageVector = Icons.Rounded.Lock,
                     contentDescription = "Lock",
-                    tint = SemiTransparentBlack,
+                    tint = Background,
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                focusedTextColor = LightGrey,
-                unfocusedTextColor = LightGrey,
+                focusedTextColor = TextColor,
+                unfocusedTextColor = TextColor,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = LightGrey,
-                containerColor = DeepSlate,
+                cursorColor = TextColor,
+                containerColor = Secondary,
             ),
             textStyle = TextStyle(fontSize = 16.sp),
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -104,19 +106,19 @@ fun RegistrationScreen(navController: NavController) {
                     Icon(
                         painter = painterResource(id = if (isPasswordVisible) R.drawable.hide else R.drawable.view),
                         contentDescription = null,
-                        tint = SemiTransparentBlack
+                        tint = Background
                     )
                 }
             })
         Spacer(modifier = Modifier.height(42.dp))
         Button(
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = VerdantGreen),
+            colors = ButtonDefaults.buttonColors(containerColor = Green),
             onClick = {
                 Manager.register(username, password) {
                     if (it == "Success") {
                         Manager.giveToken(context, username)
-                        navController.navigate(Screens.Login.route)
+                        navController.navigate(Screens.Profile.route)
                         Toast.makeText(context, "Successfully signed up", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -127,7 +129,7 @@ fun RegistrationScreen(navController: NavController) {
         ) {
             Text(
                 text = "Register",
-                color = LightGrey,
+                color = TextColor,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
@@ -135,7 +137,7 @@ fun RegistrationScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AzureBlue),
+            colors = ButtonDefaults.buttonColors(containerColor = Blue),
             onClick = {
                 navController.navigate(Screens.Login.route)
             },
@@ -145,7 +147,7 @@ fun RegistrationScreen(navController: NavController) {
         ) {
             Text(
                 text = "Log In",
-                color = LightGrey,
+                color = TextColor,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )

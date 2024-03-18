@@ -27,12 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.model.Task
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.MidnightBlue
-import uz.doston.e_learn.ui.theme.StormyGrey
-import uz.doston.e_learn.ui.theme.VerdantGreen
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.Primary
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
+import uz.doston.e_learn.ui.theme.Green
 
 
 @SuppressLint("MutableCollectionMutableState")
@@ -55,18 +56,18 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MidnightBlue)
+                    .background(Background)
                     .padding(it)
             ) {
                 Text(
-                    color = LightGrey,
+                    color = TextColor,
                     modifier = Modifier.padding(8.dp),
                     text = tasks[cnt].title,
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp
                 )
                 Text(
-                    color = LightGrey,
+                    color = TextColor,
                     modifier = Modifier.padding(8.dp),
                     text = tasks[cnt].content,
                     fontSize = 14.sp
@@ -75,7 +76,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     .fillMaxWidth()
                     .padding(vertical = 3.dp, horizontal = 7.dp)
                     .background(
-                        if (light != 1) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                        if (light != 1) Secondary else Primary, RoundedCornerShape(10.dp)
                     )
                     .clickable {
                         ans[cnt] = tasks[cnt].wrong_answer_1
@@ -84,7 +85,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     Text(
                         tasks[cnt].wrong_answer_1,
                         fontSize = 24.sp,
-                        color = LightGrey,
+                        color = TextColor,
                         modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp),
                     )
                 }
@@ -92,7 +93,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     .fillMaxWidth()
                     .padding(vertical = 3.dp, horizontal = 7.dp)
                     .background(
-                        if (light != 2) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                        if (light != 2) Secondary else Primary, RoundedCornerShape(10.dp)
                     )
                     .clickable {
                         ans[cnt] = tasks[cnt].wrong_answer_2
@@ -101,7 +102,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     Text(
                         tasks[cnt].wrong_answer_2,
                         fontSize = 24.sp,
-                        color = LightGrey,
+                        color = TextColor,
                         modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp),
                     )
                 }
@@ -109,7 +110,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     .fillMaxWidth()
                     .padding(vertical = 3.dp, horizontal = 7.dp)
                     .background(
-                        if (light != 3) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                        if (light != 3) Secondary else Primary, RoundedCornerShape(10.dp)
                     )
                     .clickable {
                         ans[cnt] = tasks[cnt].wrong_answer_3
@@ -118,7 +119,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     Text(
                         tasks[cnt].wrong_answer_3,
                         fontSize = 24.sp,
-                        color = LightGrey,
+                        color = TextColor,
                         modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp),
                     )
                 }
@@ -126,7 +127,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     .fillMaxWidth()
                     .padding(vertical = 3.dp, horizontal = 7.dp)
                     .background(
-                        if (light != 4) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                        if (light != 4) Secondary else Primary, RoundedCornerShape(10.dp)
                     )
                     .clickable {
                         ans[cnt] = tasks[cnt].wrong_answer_4
@@ -135,7 +136,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     Text(
                         tasks[cnt].wrong_answer_4,
                         fontSize = 24.sp,
-                        color = LightGrey,
+                        color = TextColor,
                         modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp),
                     )
                 }
@@ -145,7 +146,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     if (cnt != length - 1) {
                         Button(modifier = Modifier.padding(horizontal = 5.dp),
                             colors = ButtonDefaults.buttonColors(
-                                VerdantGreen
+                                Green
                             ),
                             onClick = {
                                 if (cnt > 0) {
@@ -171,7 +172,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                         }
                         Button(modifier = Modifier.padding(horizontal = 5.dp),
                             colors = ButtonDefaults.buttonColors(
-                                VerdantGreen
+                                Green
                             ),
                             onClick = {
                                 if (cnt + 1 < ans.size) {
@@ -198,7 +199,7 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                     } else {
                         Button(modifier = Modifier.padding(horizontal = 5.dp),
                             colors = ButtonDefaults.buttonColors(
-                                VerdantGreen
+                                Green
                             ),
                             onClick = {
                                 if (cnt > 0) {
@@ -224,12 +225,16 @@ fun OlympiadTaskScreen(name: String, length: Int, navController: NavController) 
                         }
                         Button(modifier = Modifier.padding(horizontal = 5.dp),
                             colors = ButtonDefaults.buttonColors(
-                                VerdantGreen
+                                Green
                             ),
                             onClick = {
                                 Manager.getOlympiadResponse(Manager.getToken(context), name, ans) {
-                                    Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT)
-                                        .show()
+                                    Toast.makeText(
+                                        context,
+                                        "To'g'ri javoblar soni: ${it.toString()}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    navController.navigate(Screens.Olympiads.route)
                                 }
                             }) {
                             Text(

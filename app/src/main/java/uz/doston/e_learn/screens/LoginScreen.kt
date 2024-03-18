@@ -38,7 +38,7 @@ fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MidnightBlue)
+            .background(Background)
             .padding(horizontal = 36.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -61,16 +61,16 @@ fun LoginScreen(navController: NavController) {
                 Icon(
                     imageVector = Icons.Rounded.Email,
                     contentDescription = "Email",
-                    tint = SemiTransparentBlack,
+                    tint = Background,
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                focusedTextColor = LightGrey,
-                unfocusedTextColor = LightGrey,
+                focusedTextColor = TextColor,
+                unfocusedTextColor = TextColor,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = LightGrey,
-                containerColor = DeepSlate,
+                cursorColor = TextColor,
+                containerColor = Secondary,
             ),
             textStyle = TextStyle(fontSize = 16.sp)
         )
@@ -86,16 +86,16 @@ fun LoginScreen(navController: NavController) {
                 Icon(
                     imageVector = Icons.Rounded.Lock,
                     contentDescription = "Lock",
-                    tint = SemiTransparentBlack,
+                    tint = Background,
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                focusedTextColor = LightGrey,
-                unfocusedTextColor = LightGrey,
+                focusedTextColor = TextColor,
+                unfocusedTextColor = TextColor,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = LightGrey,
-                containerColor = DeepSlate,
+                cursorColor = TextColor,
+                containerColor = Secondary,
             ),
             textStyle = TextStyle(fontSize = 16.sp),
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -104,14 +104,14 @@ fun LoginScreen(navController: NavController) {
                     Icon(
                         painter = painterResource(id = if (isPasswordVisible) R.drawable.hide else R.drawable.view),
                         contentDescription = null,
-                        tint = SemiTransparentBlack
+                        tint = Background
                     )
                 }
             })
         Spacer(modifier = Modifier.height(42.dp))
         Button(
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = VerdantGreen),
+            colors = ButtonDefaults.buttonColors(containerColor = Green),
             onClick = {
                 Manager.login(username, password) {
                     if (it == "Success") {
@@ -126,7 +126,7 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(
                 text = "Log In",
-                color = LightGrey,
+                color = TextColor,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
@@ -134,7 +134,7 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AzureBlue),
+            colors = ButtonDefaults.buttonColors(containerColor = Blue),
             onClick = {
                 navController.navigate(Screens.Register.route)
             },
@@ -144,7 +144,7 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(
                 text = "Register",
-                color = LightGrey,
+                color = TextColor,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 8.dp)
             )

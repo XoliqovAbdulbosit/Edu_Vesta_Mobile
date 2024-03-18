@@ -24,9 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import uz.doston.e_learn.model.User
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.StormyGrey
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
 
 
 @Composable
@@ -42,13 +42,13 @@ fun ReytingScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(DeepSlate)
+                .background(Background)
         ) {
             Text(
                 text = "Rating",
                 fontSize = 32.sp,
                 modifier = Modifier.padding(horizontal = 10.dp),
-                color = LightGrey,
+                color = TextColor,
             )
             LazyColumn(
                 modifier = Modifier
@@ -63,14 +63,14 @@ fun ReytingScreen(navController: NavController) {
                     ) {
                         Text(
                             text = it.user__username,
-                            color = LightGrey,
+                            color = TextColor,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text(text = it.cnt.toString(), color = LightGrey, fontSize = 20.sp)
+                        Text(text = it.cnt.toString(), color = TextColor, fontSize = 20.sp)
                     }
                     Divider(
-                        color = StormyGrey,
+                        color = Secondary,
                         thickness = 2.dp,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )

@@ -9,7 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,11 +28,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import uz.doston.e_learn.Navigation.Screens
 import uz.doston.e_learn.model.Task
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
-import uz.doston.e_learn.ui.theme.MidnightBlue
-import uz.doston.e_learn.ui.theme.StormyGrey
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.Primary
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
 
 
 @Composable
@@ -48,17 +53,30 @@ fun TaskScreen(navController: NavController, name: String) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(MidnightBlue)
+                .background(Background)
         ) {
+            ExtendedFloatingActionButton(modifier = Modifier.padding(5.dp),
+                containerColor = Background,
+                text = { Text(text = "Back", color = TextColor) },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Tasks Icon",
+                        tint = TextColor
+                    )
+                },
+                onClick = {
+                    navController.navigate(Screens.Tasks.route)
+                })
             Text(
-                color = LightGrey,
+                color = TextColor,
                 modifier = Modifier.padding(8.dp),
                 text = task.title,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp
             )
             Text(
-                color = LightGrey,
+                color = TextColor,
                 modifier = Modifier.padding(8.dp),
                 text = task.content,
                 fontSize = 14.sp
@@ -67,7 +85,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 .fillMaxWidth()
                 .padding(vertical = 3.dp, horizontal = 7.dp)
                 .background(
-                    if (light != 1) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                    if (light != 1) Secondary else Primary, RoundedCornerShape(10.dp)
                 )
                 .clickable {
                     selected = task.wrong_answer_1
@@ -75,7 +93,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 }) {
                 Text(
                     text = task.wrong_answer_1,
-                    color = LightGrey,
+                    color = TextColor,
                     fontSize = 24.sp,
                     modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                 )
@@ -84,7 +102,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 .fillMaxWidth()
                 .padding(vertical = 3.dp, horizontal = 7.dp)
                 .background(
-                    if (light != 2) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                    if (light != 2) Secondary else Primary, RoundedCornerShape(10.dp)
                 )
                 .clickable {
                     selected = task.wrong_answer_2
@@ -92,7 +110,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 }) {
                 Text(
                     text = task.wrong_answer_2,
-                    color = LightGrey,
+                    color = TextColor,
                     fontSize = 24.sp,
                     modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                 )
@@ -101,7 +119,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 .fillMaxWidth()
                 .padding(vertical = 3.dp, horizontal = 7.dp)
                 .background(
-                    if (light != 3) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                    if (light != 3) Secondary else Primary, RoundedCornerShape(10.dp)
                 )
                 .clickable {
                     selected = task.wrong_answer_3
@@ -109,7 +127,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 }) {
                 Text(
                     text = task.wrong_answer_3,
-                    color = LightGrey,
+                    color = TextColor,
                     fontSize = 24.sp,
                     modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                 )
@@ -118,7 +136,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 .fillMaxWidth()
                 .padding(vertical = 3.dp, horizontal = 7.dp)
                 .background(
-                    if (light != 4) StormyGrey else DeepSlate, RoundedCornerShape(10.dp)
+                    if (light != 4) Secondary else Primary, RoundedCornerShape(10.dp)
                 )
                 .clickable {
                     selected = task.wrong_answer_4
@@ -126,7 +144,7 @@ fun TaskScreen(navController: NavController, name: String) {
                 }) {
                 Text(
                     text = task.wrong_answer_4,
-                    color = LightGrey,
+                    color = TextColor,
                     fontSize = 24.sp,
                     modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                 )
@@ -134,6 +152,7 @@ fun TaskScreen(navController: NavController, name: String) {
             Button(modifier = Modifier.padding(horizontal = 10.dp), onClick = {
                 Manager.getTaskResponse(name, user, selected) {
                     Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    if (it == "To'g'ri javob") navController.navigate(Screens.Tasks.route)
                 }
             }) {
                 Text(text = "Submit")

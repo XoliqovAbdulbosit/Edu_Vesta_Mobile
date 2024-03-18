@@ -21,21 +21,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import uz.doston.e_learn.ui.theme.Charcoal
-import uz.doston.e_learn.ui.theme.DeepSlate
-import uz.doston.e_learn.ui.theme.LightGrey
+import uz.doston.e_learn.ui.theme.Background
+import uz.doston.e_learn.ui.theme.Secondary
+import uz.doston.e_learn.ui.theme.TextColor
 
 @Composable
 fun Olympiad(name: String, navController: NavController) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 4.dp, horizontal = 7.dp)
-        .background(Charcoal, RoundedCornerShape(6.dp))
+        .background(Secondary, RoundedCornerShape(6.dp))
         .clickable {
             navController.navigate("Olympiad/$name")
         }) {
         Text(
-            color = LightGrey,
+            color = TextColor,
             modifier = Modifier.padding(8.dp),
             text = name,
             fontWeight = FontWeight.Bold,
@@ -54,7 +54,7 @@ fun OlympiadsScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(DeepSlate)
+                .background(Background)
         ) {
             var olympiads by remember { mutableStateOf<List<String>>(emptyList()) }
             Manager.getOlympiadsList {
@@ -63,7 +63,7 @@ fun OlympiadsScreen(navController: NavController) {
             Text(
                 text = "Olympiads",
                 fontSize = 32.sp,
-                color = LightGrey,
+                color = TextColor,
                 modifier = Modifier.padding(10.dp)
             )
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
